@@ -127,9 +127,15 @@ BOOST_AUTO_TEST_SUITE(HashTableInsertAndLookupTests)
 	{
 		//Arrange
 		HashTable table(1);
+		std::ostringstream outBuffer;
+		std::streambuf* coutConsumer = std::cout.rdbuf(outBuffer.rdbuf());
+
+		//Act
+		HashNode* node = table.lookupViaKey("A");
+		std::cout.rdbuf(coutConsumer);
 
 		//Act & Assert
-		BOOST_CHECK_THROW(table.lookupViaKey("A"), std::invalid_argument);
+		BOOST_CHECK_EQUAL(node, nullptr);
 	}
 	BOOST_AUTO_TEST_CASE(LookupAbsentBrick)
 	{

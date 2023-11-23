@@ -40,17 +40,11 @@ void HashTable::insert(std::string northSymbol, std::string southSymbol) {
 			HTable[keyHash] = newBrick;
 		}
 	}
-	//delete newBrick;
-	delete newBrick;
 }
 
 HashNode* HashTable::lookupViaKey(std::string northSymbol) {
 	//Turn the key into a hash value, this will be the index for the table. For this problem the north symbol for each brick will act as the key. 
-	int keyHash = performHashing(northSymbol);
-
-	if (!HTable[keyHash]) {
-		throw std::invalid_argument("Index out of range");
-	}
+	long long unsigned int keyHash = performHashing(northSymbol);
 	//Look for brick at the index of the hashing value of the north symbols name
 	try {
 		HashNode* currentBrick = HTable[keyHash];

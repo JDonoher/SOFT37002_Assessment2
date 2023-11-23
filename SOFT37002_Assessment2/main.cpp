@@ -4,8 +4,8 @@
 
 int main(int argc, char* argv[]) {
 	std::cout << "Program name: " << argv[0] << std::endl;
-	HashTable northTable = HashTable(100000);
-	HashTable southTable = HashTable(100000);
+	HashTable northTable(10);
+	HashTable southTable(10);
 	std::string filePath;
 	std::string firstBrickNorth;
 	std::string firstBrickSouth;
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 					// Insert the first key-value pair into the table
 					std::cout << "First brick: " << firstBrickNorth << " Second brick: " << firstBrickSouth << std::endl;
 					northTable.insert(firstBrickNorth, firstBrickSouth);
-					southTable.insert(firstBrickNorth, firstBrickSouth);
+					southTable.insert(firstBrickSouth, firstBrickNorth);
 				}
 			}
 			while (std::getline(file, line)) {

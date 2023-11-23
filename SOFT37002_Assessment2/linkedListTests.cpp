@@ -268,18 +268,18 @@ BOOST_AUTO_TEST_SUITE(ListInsertFrontThenBackTests)
 BOOST_AUTO_TEST_SUITE_END()
 /////////////////////////////////////////////////////////////////////////////////////////////
 BOOST_AUTO_TEST_SUITE(ListGenerateResultTests)
-BOOST_AUTO_TEST_CASE(GenerateSingleResult)
-{
-	//Arrange
-	HashTable* northTestTable = new HashTable(1);
-	HashTable* southTestTable = new HashTable(1);
-	ResultList resultList(northTestTable, southTestTable);
+	BOOST_AUTO_TEST_CASE(GenerateSingleResult)
+	{
+		//Arrange
+		HashTable* northTestTable = new HashTable(1);
+		HashTable* southTestTable = new HashTable(1);
+		ResultList resultList(northTestTable, southTestTable);
 
-	//Act
-	northTestTable->insert("North", "South");
-	southTestTable->insert("South", "North");
-	resultList.generateSequence("North", "South");
-}
+		//Act
+		northTestTable->insert("North", "South");
+		southTestTable->insert("South", "North");
+		resultList.generateSequence("North", "South");
+	}
 	BOOST_AUTO_TEST_CASE(GenerateSingleResultShow)
 	{
 		//Arrange
@@ -294,6 +294,25 @@ BOOST_AUTO_TEST_CASE(GenerateSingleResult)
 		northTestTable->insert("North", "South");
 		southTestTable->insert("South", "North");
 		resultList.generateSequence("North", "South");
+		resultList.show();
+		std::cout.rdbuf(coutConsumer);
+		//Assert
+		BOOST_CHECK_EQUAL(outBuffer.str(), expectedString);
+	}
+	BOOST_AUTO_TEST_CASE(GenerateWithInvalidBrickShow)
+	{
+		//Arrange
+		HashTable* northTestTable = new HashTable(1);
+		HashTable* southTestTable = new HashTable(1);
+		ResultList resultList(northTestTable, southTestTable);
+		std::ostringstream outBuffer;
+		std::streambuf* coutConsumer = std::cout.rdbuf(outBuffer.rdbuf());
+		std::string expectedString = "Empty list, starting brick not in list or file empty.\n";
+
+		//Act
+		northTestTable->insert("North", "South");
+		southTestTable->insert("South", "North");
+		resultList.generateSequence("abc", "xyc");
 		resultList.show();
 		std::cout.rdbuf(coutConsumer);
 		//Assert

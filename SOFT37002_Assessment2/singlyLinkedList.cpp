@@ -53,12 +53,17 @@ void ResultList::insertAtEnd(QueueNode* b) {
 }
 
 void ResultList::show() {
-	QueueNode* p = head;
-	while (p != nullptr) {
-		cout << p->northSymbol ;
-		if (p->next != nullptr)
-			cout << "\n";
-		p = p->next;
+	if (head == nullptr) {
+		std::cout << "Empty list, starting brick not in list or file empty." <<std::endl;
+	}
+	else {
+		QueueNode* p = head;
+		while (p != nullptr) {
+			cout << p->northSymbol;
+			if (p->next != nullptr)
+				cout << "\n";
+			p = p->next;
+		}
 	}
 }
 
@@ -88,7 +93,7 @@ void ResultList::searchEast(std::string currentSymbol)
 void ResultList::searchWest(std::string currentSymbol)
 {
 	HashNode*  currentBrick = southTable->lookupViaKey(currentSymbol);
-	while (currentBrick) {
+	while (currentBrick != nullptr) {
 		QueueNode* newNode = new QueueNode(currentBrick, nullptr);
 		std::string tmp = newNode->northSymbol;
 		newNode->northSymbol = newNode->southSymbol;
@@ -98,4 +103,5 @@ void ResultList::searchWest(std::string currentSymbol)
 		}
 		currentBrick = southTable->lookupViaKey(newNode->northSymbol);
 	}
+	delete currentBrick;
 }
