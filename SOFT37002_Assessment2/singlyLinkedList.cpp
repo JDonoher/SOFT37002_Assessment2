@@ -1,7 +1,6 @@
 #include <iostream>
 #include "singlyLinkedList.h"
 
-using namespace std;
 
 QueueNode::QueueNode(HashNode* h, QueueNode* p) {
 	northSymbol = h->northSymbol;
@@ -59,9 +58,9 @@ void ResultList::show() {
 	else {
 		QueueNode* p = head;
 		while (p != nullptr) {
-			cout << p->northSymbol;
+			std::cout << p->northSymbol;
 			if (p->next != nullptr)
-				cout << "\n";
+				std::cout << "\n";
 			p = p->next;
 		}
 	}

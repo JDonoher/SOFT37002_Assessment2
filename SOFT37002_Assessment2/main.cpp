@@ -4,8 +4,8 @@
 
 int main(int argc, char* argv[]) {
 	std::cout << "Program name: " << argv[0] << std::endl;
-	HashTable northTable(10);
-	HashTable southTable(10);
+	HashTable northTable(100000);
+	HashTable southTable(100000);
 	std::string filePath;
 	std::string firstBrickNorth;
 	std::string firstBrickSouth;
@@ -21,23 +21,24 @@ int main(int argc, char* argv[]) {
 		std::cout << "Reading file from provided path: " << filePath << std::endl;
 		std::ifstream file(filePath);
 		if (file.is_open()) {
-			std::cout << "File oepn" << std::endl;
+			std::cout << "File open" << std::endl;
 			// Use an istringstream to split the line at the comma
 			// Read the first line and create a pair of strings
 			if (std::getline(file, line)) {
-				std::stringstream ss(line);
-				if (std::getline(ss, firstBrickNorth, ',') && std::getline(ss, firstBrickSouth)) {
+				std::stringstream stringStream(line);
+				if (std::getline(stringStream, firstBrickNorth, ',') && std::getline(stringStream, firstBrickSouth)) {
 					// Insert the first key-value pair into the table
 					std::cout << "First brick: " << firstBrickNorth << " Second brick: " << firstBrickSouth << std::endl;
 					northTable.insert(firstBrickNorth, firstBrickSouth);
 					southTable.insert(firstBrickSouth, firstBrickNorth);
 				}
 			}
+			std::cout << "##### Loading bricks into maps #####" << std::endl;
 			while (std::getline(file, line)) {
 				std::string firstPart, secondPart;
-				std::istringstream iss(line);
+				std::istringstream inStream(line);
 				// Read the two strings separated by a comma
-				if (std::getline(iss, firstPart, ',') && std::getline(iss, secondPart)) {
+				if (std::getline(inStream, firstPart, ',') && std::getline(inStream, secondPart)) {
 					northTable.insert(firstPart, secondPart);
 					southTable.insert(secondPart, firstPart);
 				}

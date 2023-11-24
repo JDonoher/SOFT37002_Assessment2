@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 				if (std::getline(ss, firstBrickNorth, ',') && std::getline(ss, firstBrickSouth)) {
 					// Insert the first key-value pair into the table
 					northTable.insert(firstBrickNorth, firstBrickSouth);
-					southTable.insert(firstBrickNorth, firstBrickSouth);
+					southTable.insert(firstBrickSouth, firstBrickNorth);
 				}
 			}
 			while (std::getline(file, line)) {
